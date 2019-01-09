@@ -13,12 +13,15 @@ var Blissly = new Object({
 		noise: null,
 		synths: []
 	},
-	init: function (logs) {
+	button: null,
+	doVisuals: true,
+	init: function (visuals, logs) {
+		if (visuals == undefined) { visuals = true; }
+		this.doVisuals = visuals;
 		if (logs == undefined) { logs = false; }
 		this.doLogging = logs;
 
 		Constants.init();
-		Visual.init(this);
 
 		//create root synth
 		this.instruments.root = Instruments.makeRoot();
@@ -49,8 +52,19 @@ var Blissly = new Object({
 		Tone.Master.chain(Master.eq, Master.midHighCut, Master.hpFilter, Master.lpFilter, Master.compressor, Master.limiter);
 		Tone.Master.volume = -24;
 
+		if (this.doVisuals) {
+			var blisslyControl = '';
+			if (new RegExp('iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini', 'i').test(navigator.userAgent)) {
+				blisslyControl = 'touchstart';
+			} else {
+				blisslyControl = 'click';
+			}
+			this.button = document.getElementById('blissly-toggle');
+			this.button.addEventListener(blisslyControl, this.togglePlay.bind(this));
+			Visual.display(this.button);
+		}
+
 		this.isInit = true;
-		Visual.display();
 	},
 	togglePlay: function () {
 		if (this.isInit) {
@@ -62,7 +76,9 @@ var Blissly = new Object({
 		}
 	},
 	play: function (app) {
-		Visual.play();
+		if (this.doVisuals) {
+			Visual.play(this.button);
+		}
 		//main song loop
 		var mainLoop = new Tone.Loop(function (time) {
 			app.instruments.noise.triggerAttackRelease(Constants.loopLength, time, Random.generateRandomNumber(2, 3) / 10);
@@ -70,8 +86,6 @@ var Blissly = new Object({
 			for (var i in app.instruments.synths) {
 				var note = parseInt(i) + 2;
 				app.instruments.synths[i].triggerAttackRelease(Constants.scale[Random.generateRandomValue(Constants.scale.length)] + note, (Constants.loopLength - 2) + 'm', time + 1.5, Random.generateRandomNumber(5, (13 - (parseInt(i) * 2))) / 100);
-				console.log(Constants.loopLength + 'm');
-				console.log((Constants.loopLength - 2) + 'm');
 			}
 		}, Constants.loopLength).start(0);
 		Tone.Transport.start('+0.2');
@@ -80,7 +94,9 @@ var Blissly = new Object({
 		Util.log('PLAYING');
 	},
 	stop: function (app) {
-		Visual.stop();
+		if (this.doVisuals) {
+			Visual.stop(this.button);
+		}
 		Tone.Transport.stop();
 		app.instruments.root.triggerRelease();
 		app.instruments.noise.triggerRelease();

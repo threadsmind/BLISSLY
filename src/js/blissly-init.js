@@ -1,2 +1,2 @@
 // requires: blissly.js
-Blissly.init(true);
+Blissly.init();
