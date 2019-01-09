@@ -52,24 +52,28 @@ var Blissly = new Object({
 		Tone.Master.chain(Master.eq, Master.midHighCut, Master.hpFilter, Master.lpFilter, Master.compressor, Master.limiter);
 		Tone.Master.volume = -24;
 
-		if (this.doVisuals) {
-			var blisslyControl = '';
-			if (new RegExp('iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini', 'i').test(navigator.userAgent)) {
-				blisslyControl = 'touchstart';
-			} else {
-				blisslyControl = 'click';
-			}
-			this.button = document.getElementById('blissly-toggle');
-			this.button.addEventListener(blisslyControl, this.togglePlay.bind(this));
-			Visual.display(this.button);
+		var blisslyControl = '';
+		if (new RegExp('iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini', 'i').test(navigator.userAgent)) {
+			blisslyControl = 'touchstart';
+		} else {
+			blisslyControl = 'click';
 		}
+		if (this.doVisuals) {
+			this.button = document.getElementById('blissly-toggle');
+			Visual.display(this.button);
+		} else {
+			this.button = document;
+		}
+		this.button.addEventListener(blisslyControl, this.togglePlay.bind(this));
 
 		this.isInit = true;
 	},
 	togglePlay: function () {
 		if (this.isInit) {
 			if (this.isPlaying) {
-				this.stop(this);
+				if (this.doVisuals) {
+					this.stop(this);
+				}
 			} else {
 				this.play(this);
 			}
