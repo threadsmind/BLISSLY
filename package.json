@@ -1,0 +1,24 @@
+{
+  "name": "blissly",
+  "version": "1.0.0",
+  "description": "generate bliss",
+  "main": "blissly.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brandon Thread (@threadsmind)",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-deporder": "^1.1.0",
+    "gulp-htmlclean": "^2.7.22",
+    "gulp-jsvalidate": "^4.0.0",
+    "gulp-uglify": "^3.0.1"
+  },
+  "dependencies": {
+    "tone": "^13.4.5"
+  }
+}
