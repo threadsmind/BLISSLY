@@ -1,6 +1,6 @@
 // requires: utils.js
 var Constants = new Object({
-    version: 'v2019.01.08',
+    version: 'v2019.01.10',
     silenceTone: true,
     minimumSynths: 2,
     maximumSynths: 4,
