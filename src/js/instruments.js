@@ -1,4 +1,4 @@
-// requires: utils.js constants.js tone.js
+// requires: utils.js constants.js 
 var Instruments = new Object({
 	portamento: Random.generateRandomNumber(1, 4) / 10,
 	makeEnvelope: function () {

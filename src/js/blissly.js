@@ -1,4 +1,4 @@
-// requires: utils.js constants.js buses.js master.js visual-update.js instruments.js tone.js
+// requires: utils.js constants.js buses.js master.js visual-update.js instruments.js
 var Blissly = new Object({
 	isPlaying: false,
 	doLogging: false,

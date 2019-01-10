@@ -1,4 +1,4 @@
-// requires: utils.js tone.js
+// requires: utils.js 
 var Buses = new Object({
     vibrato: new Tone.Vibrato('1m', 1)
         .receive('vibrato')

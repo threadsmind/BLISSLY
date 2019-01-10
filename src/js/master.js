@@ -1,4 +1,4 @@
-// requires: constants.js tone.js
+// requires: constants.js 
 var Master = new Object({
     hpFilter: new Tone.Filter(50, 'highpass'),
     lpFilter: new Tone.Filter(19000, 'lowpass'),
