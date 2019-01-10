@@ -13,7 +13,10 @@ var Blissly = new Object({
 		noise: null,
 		synths: []
 	},
+	volume: 0,
+	panel: null,
 	button: null,
+	slider: null,
 	doVisuals: true,
 	init: function (visuals, logs) {
 		if (visuals == undefined) { visuals = true; }
@@ -51,8 +54,8 @@ var Blissly = new Object({
 
 		//create master effects chain
 		Tone.Master.chain(Master.eq, Master.midHighCut, Master.hpFilter, Master.lpFilter, Master.compressor, Master.limiter);
-		Tone.Master.volume = -24;
 
+		//figure out controls
 		var blisslyControl = '';
 		if (new RegExp('iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini', 'i').test(navigator.userAgent)) {
 			blisslyControl = 'touchstart';
@@ -60,12 +63,18 @@ var Blissly = new Object({
 			blisslyControl = 'click';
 		}
 		if (this.doVisuals) {
-			this.button = document.getElementById('blissly-toggle');
-			Visual.display(this.button);
+			this.panel = document.getElementById('blissly-panel');
+			this.button = document.getElementById('blissly-button');
+			this.slider = document.getElementById('blissly-volume');
+			Visual.display(this.panel);
+			this.slider.addEventListener('change', this.changeVolume.bind(null, this, undefined));
 		} else {
 			this.button = document;
+			this.slider.value = this.volume;
 		}
 		this.button.addEventListener(blisslyControl, this.togglePlay.bind(this));
+
+		this.changeVolume(this, this.slider.value);
 
 		this.isInit = true;
 	},
@@ -103,6 +112,7 @@ var Blissly = new Object({
 			Visual.stop(this.button);
 		}
 		Tone.Transport.stop();
+		//TODO there may be a way to sync these releases to the transport or something to cut down on .triggerRelease calls here?
 		app.instruments.root.triggerRelease();
 		app.instruments.noise.triggerRelease();
 		for (var i in app.instruments.synths) {
@@ -111,5 +121,20 @@ var Blissly = new Object({
 
 		app.isPlaying = false;
 		Util.log('STOPPING');
+	},
+	changeVolume: function (app, volume) {
+		if (volume == undefined) {
+			if (app.doVisuals) {
+				volume = app.slider.value;
+			} else {
+				volume = 0;
+			}
+		} else {
+			if (volume > 0) {
+				volume = 0;
+			}
+		}
+		app.volume = volume;
+		Tone.Master.volume.value = volume;
 	}
 });

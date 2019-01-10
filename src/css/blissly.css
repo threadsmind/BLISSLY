@@ -28,26 +28,45 @@ h1,
     overflow: hidden;
 }
 
-#loading {
-    color: #cfcfcf;
-    text-align: center;
-    padding: 35px;
-}
-
-#blissly-toggle {
-    display: none;
+button {
     background-color: #bbeea1;
     border: none;
     color: #00241f;
     cursor: pointer;
 }
 
+#blissly-loading {
+    color: #cfcfcf;
+    text-align: center;
+    padding: 35px;
+}
+
+#blissly-panel {
+    display: none;
+    height: 130px;
+    width: 200px;
+}
+
+#blissly-volume {
+    height: 30px;
+    width: 200px;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#blissly-volume::-moz-range-thumb {
+    background: #bbeea1;
+}
+
 .box {
     height: 100px;
     width: 200px;
-    max-height: 100%;
-    max-width: 100%;
     border-radius: 1vh;
     font-weight: 100;
     font-size: 1.2rem;
+}
+
+.fit {
+    max-height: 100%;
+    max-width: 100%;
 }

@@ -24,10 +24,15 @@ Dependencies:
 
 <body>
     <h1>Blissly Music Generator</h1>
-    <div id="loading" class="box">LOADING...</div>
-    <button id="blissly-toggle" class="box" type="button" name="play blissly music">
-        <span class="vhidden">Click here to play </span>B L I S S L Y
-    </button>
+    <div id="blissly-loading" class="box fit">LOADING...</div>
+    <div id="blissly-panel" class="fit">
+        <button id="blissly-button" class="box fit" type="button" name="toggle blissly music" aria-label="toggle blissly music">
+            <span class="vhidden">Click here to play </span>B L I S S L Y
+        </button>
+        <div class="fit">
+            <input type="range" min="-28" max="0" value="-2" class="fit" id="blissly-volume" title="blissly volume control" aria-label="blissly volume control">
+        </div>
+    </div>
     <script src="blissly.js"></script>
     <script defer>
         Blissly.init();
