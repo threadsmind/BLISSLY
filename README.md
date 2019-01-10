@@ -14,9 +14,7 @@ Example: `Blissly.init(false);`
 
 ## Known Issues
 
-The minified/uglified build of BLISSLY may not function properly in newer versions of Firefox. There is a separate build for Firefox in `/firefox/` that should work while this issue is solved.
-
-You can try a password-protected demo of the Firefox build on the [BLISSLY-Firefox itch.io page](https://brandonmakesthings.itch.io/blissly-firefox) using the password "BLISSLY". This demo is not maintained.
+BLISSLY may not function properly in newer versions of Firefox. Compatibility tests have been put in place within the code but these are not guaranteed to work.
 
 ## Contact
 

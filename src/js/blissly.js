@@ -22,6 +22,7 @@ var Blissly = new Object({
 		this.doLogging = logs;
 
 		Constants.init();
+		Buses.init();
 
 		//create root synth
 		this.instruments.root = Instruments.makeRoot();
